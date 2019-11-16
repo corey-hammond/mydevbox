@@ -19,7 +19,6 @@ class Tool(models.Model):
     title = models.CharField(max_length=100)
     tool_type = models.CharField(max_length=100)
     content = models.TextField()
-    pub_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return "%s: %s" % (self.title, self.tool_type)

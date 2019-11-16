@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/Users/coreyhammond/.local/share/virtualenvs/mydevbox-backend-9Jm5O7cb/bin/python",
+    "python.formatting.provider": "black"
+}

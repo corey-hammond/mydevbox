@@ -9,7 +9,7 @@ class ToolBoxSerializer(serializers.ModelSerializer):
         model = ToolBox
         fields = (
             "id",
-            "language",
+            "name",
             "tools",
         )
 

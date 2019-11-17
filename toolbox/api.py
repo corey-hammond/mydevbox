@@ -1,14 +1,15 @@
-from rest_framework import viewsets
-
+from rest_framework import viewsets, permissions
 from toolbox.models import ToolBox, Tool
 from .serializers import ToolBoxSerializer, ToolSerializer
 
 
 class ToolBoxViewSet(viewsets.ModelViewSet):
-    serializer_class = ToolBoxSerializer
     queryset = ToolBox.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ToolBoxSerializer
 
 
 class ToolViewSet(viewsets.ModelViewSet):
-    serializer_class = ToolSerializer
     queryset = Tool.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ToolSerializer

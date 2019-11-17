@@ -1,11 +1,105 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addToolbox } from "../../actions/toolbox";
 
-export default class Form extends Component {
+class Form extends Component {
+  state = {
+    toolbox: [],
+    title: "",
+    toolType: "",
+    content: ""
+  };
+
+  onChange = evt => {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    });
+  };
+
+  onSubmit = evt => {
+    evt.preventDefault();
+    const { toolbox, title, toolType, content } = this.state;
+    const newBox = { toolbox };
+    const newTool = { title, toolType, content };
+    this.props.addToolbox(newBox);
+  };
+
   render() {
+    const { toolbox, title, toolType, content } = this.state;
     return (
-      <div>
-        <h1>add tool form</h1>
+      <div className="card card-body mt-4 mb-4">
+        {/* ToolBox Form */}
+        <h2>Add a Tool Box</h2>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Tool Box Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="toolbox"
+              onChange={this.onChange}
+              value={toolbox}
+            />
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </form>
+
+        {/* Tool Form */}
+        <h2>Add a New Tool</h2>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Tool Box</label>
+            <select name="toolbox" className="form-control">
+              {/* bring in state via props, map out select options */}
+              <option>Python</option>
+              <option>Javascript</option>
+              <option>React</option>
+              <option>Express</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Tool Name</label>
+            <input
+              className="form-control"
+              type="text"
+              name="title"
+              onChange={this.onChange}
+              value={title}
+            />
+          </div>
+          <div className="form-group">
+            <label>Tool Type</label>
+            <input
+              className="form-control"
+              type="text"
+              name="toolType"
+              onChange={this.onChange}
+              value={toolType}
+            />
+          </div>
+          <div className="form-group">
+            <label>Content</label>
+            <textarea
+              className="form-control"
+              name="content"
+              rows="3"
+              onChange={this.onChange}
+              value={content}
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
     );
   }
 }
+
+export default connect(null, { addToolbox })(Form);

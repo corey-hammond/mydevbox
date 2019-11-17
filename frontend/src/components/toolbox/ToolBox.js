@@ -3,12 +3,12 @@ import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { getToolbox } from "../../actions/toolbox";
+import { getToolbox, deleteToolbox } from "../../actions/toolbox";
 
 class ToolBox extends Component {
   state = {
     isLoaded: false
-  }
+  };
   // constructor(props) {
   //   super(props);
 
@@ -24,7 +24,7 @@ class ToolBox extends Component {
 
   componentDidMount() {
     this.props.getToolbox();
-    this.setState({isLoaded: true})
+    this.setState({ isLoaded: true });
     // axios.get("/api/toolbox/").then(res =>
     //   this.setState({
     //     isLoaded: true,
@@ -47,6 +47,7 @@ class ToolBox extends Component {
               <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -55,6 +56,14 @@ class ToolBox extends Component {
                   <tr key={tool.id}>
                     <td>{tool.id}</td>
                     <td>{tool.name}</td>
+                    <td>
+                      <button
+                        onClick={this.props.deleteToolbox.bind(this, tool.id)}
+                        className="btn btn-danger btn-sm"
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -77,4 +86,4 @@ const mapStateToProps = state => ({
 });
 
 // export default ToolBox;
-export default connect(mapStateToProps, { getToolbox })(ToolBox);
+export default connect(mapStateToProps, { getToolbox, deleteToolbox })(ToolBox);

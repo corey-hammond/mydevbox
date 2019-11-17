@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import ReactDOM from "react-dom";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import Header from "./layout/Header";
@@ -11,12 +11,14 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Fragment>
-          <Header />
-          <div className="container">
-            <Dashboard />
-          </div>
-        </Fragment>
+        <Router>
+          <Fragment>
+            <Header />
+            <div className="container">
+              <Dashboard />
+            </div>
+          </Fragment>
+        </Router>
       </Provider>
     );
   }

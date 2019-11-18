@@ -37,13 +37,17 @@ class Form extends Component {
   handleSubmitTools = evt => {
     evt.preventDefault();
     const target = document.getElementById("boxname");
-    const values = target.options;
-    const selected = values.selectedIndex;
-    const toolbox = target[selected].value;
+    const toolbox = target[target.selectedIndex].id;
     const { title, tool_type, content } = this.state;
     const newTool = { toolbox, title, tool_type, content };
     console.log(newTool);
     this.props.addTool(newTool);
+    this.setState({
+      boxname: "",
+      title: "",
+      tool_type: "",
+      content: ""
+    });
   };
 
   handleSubmitToolbox = evt => {
@@ -52,6 +56,11 @@ class Form extends Component {
     const newBox = box;
     console.log(newBox);
     this.props.addToolbox(newBox);
+    this.setState({
+      box: {
+        name: ""
+      }
+    });
   };
 
   render() {
@@ -100,7 +109,7 @@ class Form extends Component {
                 {toolbox.map((tool, idx) => {
                   return (
                     <option key={tool.id} id={tool.id}>
-                      {tool.id}
+                      {tool.name}
                     </option>
                   );
                 })}

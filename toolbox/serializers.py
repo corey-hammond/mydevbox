@@ -8,6 +8,7 @@ class ToolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tool
         fields = (
+            "id",
             "toolbox",
             "title",
             "tool_type",

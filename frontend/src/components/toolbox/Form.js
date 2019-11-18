@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getToolbox, addToolbox } from "../../actions/toolbox";
+import { getTools, addTool } from "../../actions/tools";
 
 class Form extends Component {
   state = {
     box: {
       name: ""
     },
+    boxname: "",
     title: "",
-    toolType: "",
+    tool_type: "",
     content: "",
     isLoaded: false
   };
@@ -19,22 +21,35 @@ class Form extends Component {
   }
 
   onChange = evt => {
-    evt.target.name === "name"
-      ? this.setState({
-          box: {
-            name: evt.target.value
-          }
-        })
-      : this.setState({
-          [evt.target.name]: evt.target.value
-        });
+    if (evt.target.name === "name") {
+      this.setState({
+        box: {
+          name: evt.target.value
+        }
+      });
+    }
+
+    this.setState({
+      [evt.target.name]: evt.target.value
+    });
   };
 
-  onSubmit = evt => {
+  handleSubmitTools = evt => {
     evt.preventDefault();
-    const { box, title, toolType, content } = this.state;
+    const target = document.getElementById("boxname");
+    const values = target.options;
+    const selected = values.selectedIndex;
+    const toolbox = target[selected].value;
+    const { title, tool_type, content } = this.state;
+    const newTool = { toolbox, title, tool_type, content };
+    console.log(newTool);
+    this.props.addTool(newTool);
+  };
+
+  handleSubmitToolbox = evt => {
+    evt.preventDefault();
+    const { box } = this.state;
     const newBox = box;
-    const newTool = { title, toolType, content };
     console.log(newBox);
     this.props.addToolbox(newBox);
   };
@@ -42,7 +57,7 @@ class Form extends Component {
   render() {
     const { isLoaded } = this.state;
     const { toolbox } = this.props;
-    const { box, title, toolType, content } = this.state;
+    const { box, boxname, title, tool_type, content } = this.state;
     if (!isLoaded) {
       return <p>Loading...</p>;
     } else {
@@ -50,7 +65,7 @@ class Form extends Component {
         <div className="card card-body mt-4 mb-4">
           {/* ToolBox Form */}
           <h2>Add a Tool Box</h2>
-          <form onSubmit={this.onSubmit}>
+          <form>
             <div className="form-group">
               <label>Tool Box Name</label>
               <input
@@ -62,7 +77,10 @@ class Form extends Component {
               />
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-primary">
+              <button
+                className="btn btn-primary"
+                onClick={this.handleSubmitToolbox}
+              >
                 Submit
               </button>
             </div>
@@ -70,13 +88,21 @@ class Form extends Component {
 
           {/* Tool Form */}
           <h2>Add a New Tool</h2>
-          <form onSubmit={this.onSubmit}>
+          <form>
             <div className="form-group">
               <label>Tool Box</label>
-              <select name="toolbox" className="form-control">
-                {/* bring in state via props, map out select options */}
+              <select
+                id="boxname"
+                name="boxname"
+                onChange={this.onChange}
+                className="form-control"
+              >
                 {toolbox.map((tool, idx) => {
-                  return <option key={tool.id}>{tool.name}</option>;
+                  return (
+                    <option key={tool.id} id={tool.id}>
+                      {tool.id}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -95,9 +121,9 @@ class Form extends Component {
               <input
                 className="form-control"
                 type="text"
-                name="toolType"
+                name="tool_type"
                 onChange={this.onChange}
-                value={toolType}
+                value={tool_type}
               />
             </div>
             <div className="form-group">
@@ -111,7 +137,10 @@ class Form extends Component {
               ></textarea>
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-primary">
+              <button
+                className="btn btn-primary"
+                onClick={this.handleSubmitTools}
+              >
                 Submit
               </button>
             </div>
@@ -126,4 +155,6 @@ const mapStateToProps = state => ({
   toolbox: state.toolbox.toolbox
 });
 
-export default connect(mapStateToProps, { getToolbox, addToolbox })(Form);
+export default connect(mapStateToProps, { getToolbox, addToolbox, addTool })(
+  Form
+);

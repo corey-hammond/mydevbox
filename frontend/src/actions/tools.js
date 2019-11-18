@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_TOOLS, DELETE_TOOL } from "./types";
+import { GET_TOOLS, DELETE_TOOL, ADD_TOOL } from "./types";
 
 // Get tools from db -- NO LINK TO DISPLAY THESE YET
 export const getTools = () => dispatch => {
@@ -15,8 +15,8 @@ export const getTools = () => dispatch => {
     .catch(err => console.log(err));
 };
 
-// Delete tools
-export const deleteTools = id => dispatch => {
+// Delete tool
+export const deleteTool = id => dispatch => {
   axios
     .delete(`/api/tools/${id}/`)
     .then(res => {
@@ -27,3 +27,17 @@ export const deleteTools = id => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+// Add Tool
+export const addTool = tool => dispatch => {
+  axios
+    .post("/api/tools/", tool)
+    .then(res => {
+      dispatch({
+        type: ADD_TOOL,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};
+

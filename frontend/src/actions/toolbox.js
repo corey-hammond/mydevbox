@@ -28,7 +28,7 @@ export const deleteToolbox = id => dispatch => {
     .catch(err => console.log(err));
 };
 
-// ADD Tool Box
+// Add Tool Box
 export const addToolbox = toolbox => dispatch => {
   axios
     .post("/api/toolbox/", toolbox)

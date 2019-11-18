@@ -4,23 +4,32 @@ import { addToolbox } from "../../actions/toolbox";
 
 class Form extends Component {
   state = {
-    toolbox: [],
+    toolbox: {
+      name: ""
+    },
     title: "",
     toolType: "",
     content: ""
   };
 
   onChange = evt => {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    });
+    evt.target.name === "name"
+      ? this.setState({
+          toolbox: {
+            name: evt.target.value
+          }
+        })
+      : this.setState({
+          [evt.target.name]: evt.target.value
+        });
   };
 
   onSubmit = evt => {
     evt.preventDefault();
     const { toolbox, title, toolType, content } = this.state;
-    const newBox = { toolbox };
+    const newBox = toolbox;
     const newTool = { title, toolType, content };
+    console.log(newBox);
     this.props.addToolbox(newBox);
   };
 
@@ -36,9 +45,9 @@ class Form extends Component {
             <input
               type="text"
               className="form-control"
-              name="toolbox"
+              name={"name"}
               onChange={this.onChange}
-              value={toolbox}
+              value={toolbox.name}
             />
           </div>
           <div className="form-group">

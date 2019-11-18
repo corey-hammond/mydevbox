@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -36,6 +37,7 @@ class ToolBox extends Component {
   render() {
     const { isLoaded } = this.state;
     const { toolbox } = this.props;
+
     if (!isLoaded) {
       return <p>Loading...</p>;
     } else {
@@ -45,7 +47,6 @@ class ToolBox extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th />
               </tr>
@@ -54,8 +55,9 @@ class ToolBox extends Component {
               {toolbox.map((tool, idx) => {
                 return (
                   <tr key={tool.id}>
-                    <td>{tool.id}</td>
-                    <td>{tool.name}</td>
+                    <td>
+                      <Link to={`/toolbox/${tool.id}`}>{tool.name}</Link>
+                    </td>
                     <td>
                       <button
                         onClick={this.props.deleteToolbox.bind(this, tool.id)}

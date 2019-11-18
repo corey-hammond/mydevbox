@@ -16,3 +16,7 @@ def toolbox_list(request):
 def toolbox_detail(request, pk):
     toolbox = ToolBox.objects.get(id=pk)
     return render(request, "frontend/index.html", {"toolbox": toolbox})
+
+def tool_detail(request, pk): 
+    tool = Tool.objects.get(id=pk)
+    return render(request, "frontend/index.html", {"tool": tool})

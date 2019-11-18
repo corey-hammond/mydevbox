@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getToolbox } from "../../actions/toolbox";
 import { getTools, addTool, deleteTool } from "../../actions/tools";
@@ -24,15 +25,15 @@ class BoxDetail extends Component {
     } else {
       const boxID = parseInt(this.props.match.params.boxID);
       const selectedBox = toolbox.filter(box => box.id === boxID);
-    //   console.log(selectedBox);
-    //   console.log(boxID);
+      //   console.log(selectedBox);
+      //   console.log(boxID);
       const selectedTools = tools.filter(tool => tool.toolbox === boxID);
-    //   console.log(selectedTools);
+      //   console.log(selectedTools);
 
       if (selectedBox.length > 0) {
         return (
           <Fragment>
-            <h1>{}</h1>
+            <h1>{selectedBox[0].name}</h1>
             <h2>My {selectedBox[0].name} Tools</h2>
             <table className="table table-striped">
               <thead>
@@ -46,7 +47,9 @@ class BoxDetail extends Component {
                 {selectedTools.map((tool, idx) => {
                   return (
                     <tr key={tool.id}>
-                      <td>{tool.title}</td>
+                      <td>
+                        <Link to={`/tools/${tool.id}`}>{tool.title}</Link>{" "}
+                      </td>
                       <td>{tool.tool_type}</td>
                       <td>
                         <button

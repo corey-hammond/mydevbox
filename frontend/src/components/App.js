@@ -8,6 +8,7 @@ import Header from "./layout/Header";
 import Dashboard from "./toolbox/Dashboard";
 import ToolBox from "./toolbox/ToolBox";
 import BoxDetail from "./toolbox/BoxDetail";
+import ToolDetail from "./toolbox/ToolDetail";
 import store from "../store";
 
 export default class App extends Component {
@@ -22,6 +23,7 @@ export default class App extends Component {
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/toolbox/" component={ToolBox} />
               <Route exact path="/toolbox/:boxID" component={BoxDetail} />
+              <Route exact path="/tools/:toolID" component={ToolDetail} />
               {/* <Dashboard /> */}
             </div>
           </Fragment>

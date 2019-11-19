@@ -44,9 +44,17 @@ class App extends Component {
                   <PrivateRoute exact path="/" component={Dashboard} />
                   <Route exact path="/register/" component={Register} />
                   <Route exact path="/login/" component={Login} />
-                  <Route exact path="/toolbox/" component={ToolBox} />
-                  <Route exact path="/toolbox/:boxID" component={BoxDetail} />
-                  <Route exact path="/tools/:toolID" component={ToolDetail} />
+                  <PrivateRoute exact path="/toolbox/" component={ToolBox} />
+                  <PrivateRoute
+                    exact
+                    path="/toolbox/:boxID"
+                    component={BoxDetail}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/tools/:toolID"
+                    component={ToolDetail}
+                  />
                 </Switch>
               </div>
             </Fragment>

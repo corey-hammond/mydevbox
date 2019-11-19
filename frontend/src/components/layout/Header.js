@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Header extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/toolbox/">
           MyDevBox
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -21,11 +22,12 @@ export default class Header extends Component {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item active">
-              <a className="nav-link" href="#">
-                Home <span className="sr-only">(current)</span>
-              </a>
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+              <span className="sr-only">(current)</span>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="#">
                 Features
               </a>
@@ -34,7 +36,7 @@ export default class Header extends Component {
               <a className="nav-link" href="#">
                 Pricing
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a
                 className="nav-link disabled"
@@ -42,7 +44,7 @@ export default class Header extends Component {
                 tabIndex="-1"
                 aria-disabled="true"
               >
-                Disabled
+                Login
               </a>
             </li>
           </ul>

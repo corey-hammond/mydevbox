@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getTools, addTool, deleteTool } from "../../actions/tools";
 
@@ -30,6 +31,10 @@ class ToolDetail extends Component {
             <h1>{selectedTool[0].title}</h1>
             <h3>{selectedTool[0].tool_type}</h3>
             <p>{selectedTool[0].content}</p>
+            <button className="btn btn-primary">Edit</button>
+            <button className="btn btn-secondary">
+              <Link to={`/toolbox/${selectedTool[0].toolbox}`}>Back</Link>
+            </button>
           </Fragment>
         );
       } else {

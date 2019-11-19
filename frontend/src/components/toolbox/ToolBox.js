@@ -43,7 +43,7 @@ class ToolBox extends Component {
     } else {
       return (
         <Fragment>
-          <h2>Tool Boxes</h2>
+          <h2>My Tool Boxes</h2>
           <table className="table table-striped">
             <thead>
               <tr>

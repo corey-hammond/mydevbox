@@ -64,6 +64,11 @@ class BoxDetail extends Component {
                 })}
               </tbody>
             </table>
+            {/* FEATURE TO ADD -- HAVE A HIDDEN FORM APPEAR BELOW TABLE, DISAPPEAR AFTER NEW TOOL SAVED */}
+            <button className="btn btn-primary">New++</button>
+            <button className="btn btn-secondary">
+              <Link to="/toolbox/">Back</Link>
+            </button>
           </Fragment>
         );
       } else {

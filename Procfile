@@ -1,1 +1,1 @@
-web: gunicorn mydevbox.wsgi --log-file -
+web: gunicorn mydevbox.wsgi 

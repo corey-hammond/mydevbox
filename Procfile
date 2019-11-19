@@ -1,0 +1,1 @@
+web: gunicorn mydevbox.wsgi --log-file -

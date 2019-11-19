@@ -1,7 +1,7 @@
 import axios from "axios";
-import { createMessage } from "./messages";
+import { createMessage, returnErrors } from "./messages";
 
-import { GET_TOOLS, DELETE_TOOL, ADD_TOOL, GET_ERRORS } from "./types";
+import { GET_TOOLS, DELETE_TOOL, ADD_TOOL } from "./types";
 
 // Get tools from db -- NO LINK TO DISPLAY THESE YET
 export const getTools = () => dispatch => {
@@ -13,7 +13,9 @@ export const getTools = () => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // Delete tool
@@ -41,14 +43,7 @@ export const addTool = tool => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => {
-      const errors = {
-        msg: err.response.data,
-        status: err.response.status
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors
-      });
-    });
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

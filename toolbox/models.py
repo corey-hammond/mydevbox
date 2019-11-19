@@ -1,10 +1,14 @@
 import datetime
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class ToolBox(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    owner = models.ForeignKey(
+        User, related_name="toolbox", on_delete=models.CASCADE, null=True
+    )
 
     def __str__(self):
         return self.name

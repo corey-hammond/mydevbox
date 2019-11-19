@@ -4,12 +4,20 @@ from .serializers import ToolBoxSerializer, ToolSerializer
 
 
 class ToolBoxViewSet(viewsets.ModelViewSet):
-    queryset = ToolBox.objects.all()
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
+
     serializer_class = ToolBoxSerializer
+
+    def get_queryset(self):
+        return self.request.user.toolbox.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class ToolViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+
     queryset = Tool.objects.all()
-    permission_classes = [permissions.AllowAny]
+    
     serializer_class = ToolSerializer

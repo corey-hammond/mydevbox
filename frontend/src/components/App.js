@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Route, Link } from "react-router-dom";
+import { Route, Switch, Redirect, Link } from "react-router-dom";
 
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
@@ -13,7 +13,11 @@ import Alerts from "./layout/Alerts";
 import ToolBox from "./toolbox/ToolBox";
 import BoxDetail from "./toolbox/BoxDetail";
 import ToolDetail from "./toolbox/ToolDetail";
+import Login from "./accounts/Login";
+import Register from "./accounts/Register";
+import PrivateRoute from "./common/PrivateRoute";
 import store from "../store";
+import { loadUser } from "../actions/auth";
 
 // Alert Options:
 const alertOptions = {
@@ -21,26 +25,41 @@ const alertOptions = {
   position: "top center"
 };
 
-export default class App extends Component {
+class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <AlertProvider template={AlertTemplate} {...alertOptions}>
+        <AlertProvider template={AlertTemplate} {...alertOptions}>
+          <Router>
             <Fragment>
               <Header />
               <Alerts />
               <div className="container">
-                {/* routes will go here */}
-                <Route exact path="/" component={Dashboard} />
-                <Route exact path="/toolbox/" component={ToolBox} />
-                <Route exact path="/toolbox/:boxID" component={BoxDetail} />
-                <Route exact path="/tools/:toolID" component={ToolDetail} />
-                {/* <Dashboard /> */}
+                <Switch>
+                  {/* routes will go here */}
+                  <PrivateRoute exact path="/" component={Dashboard} />
+                  <Route exact path="/register/" component={Register} />
+                  <Route exact path="/login/" component={Login} />
+                  <PrivateRoute exact path="/toolbox/" component={ToolBox} />
+                  <PrivateRoute
+                    exact
+                    path="/toolbox/:boxID"
+                    component={BoxDetail}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/tools/:toolID"
+                    component={ToolDetail}
+                  />
+                </Switch>
               </div>
             </Fragment>
-          </AlertProvider>
-        </Router>
+          </Router>
+        </AlertProvider>
       </Provider>
     );
   }

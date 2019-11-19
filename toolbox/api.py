@@ -18,6 +18,7 @@ class ToolBoxViewSet(viewsets.ModelViewSet):
 class ToolViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
+    serializer_class = ToolSerializer
     queryset = Tool.objects.all()
     
     serializer_class = ToolSerializer

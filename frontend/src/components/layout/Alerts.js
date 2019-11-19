@@ -15,6 +15,9 @@ class Alerts extends Component {
         alert.error(`Tool Content: ${error.msg.name.join()}`);
       if (error.msg.message)
         alert.error(`Message: ${error.msg.message.join()}`);
+      if (error.msg.non_field_errors)
+        alert.error(error.msg.non_field_errors.join());
+      if (error.msg.username) alert.error(error.msg.username.join());
     }
 
     if (message !== prevProps.message) {
@@ -22,6 +25,7 @@ class Alerts extends Component {
       if (message.addBox) alert.success(message.addBox);
       if (message.deleteTool) alert.success(message.deleteTool);
       if (message.addTool) alert.success(message.addTool);
+      if (message.passwordsNotMatch) alert.error(message.passwordsNotMatch);
     }
   }
 

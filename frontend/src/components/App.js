@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import { Route, Switch, Redirect, Link } from "react-router-dom";
 
 import { Provider as AlertProvider } from "react-alert";
@@ -44,17 +44,9 @@ class App extends Component {
                   <PrivateRoute exact path="/" component={Dashboard} />
                   <Route exact path="/register/" component={Register} />
                   <Route exact path="/login/" component={Login} />
-                  <PrivateRoute exact path="/toolbox/" component={ToolBox} />
-                  <PrivateRoute
-                    exact
-                    path="/toolbox/:boxID"
-                    component={BoxDetail}
-                  />
-                  <PrivateRoute
-                    exact
-                    path="/tools/:toolID"
-                    component={ToolDetail}
-                  />
+                  <Route exact path="/toolbox/" component={ToolBox} />
+                  <Route exact path="/toolbox/:boxID" component={BoxDetail} />
+                  <Route exact path="/tools/:toolID" component={ToolDetail} />
                 </Switch>
               </div>
             </Fragment>

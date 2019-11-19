@@ -2,20 +2,8 @@ from rest_framework import serializers
 from .models import ToolBox, Tool
 
 
-class ToolBoxSerializer(serializers.ModelSerializer):
-    tools = serializers.StringRelatedField(many=True)
-
-    class Meta:
-        model = ToolBox
-        fields = (
-            "id",
-            "language",
-            "tools",
-        )
-
-
 class ToolSerializer(serializers.ModelSerializer):
-    toolbox = serializers.StringRelatedField(many=False)
+    toolbox = serializers.PrimaryKeyRelatedField
 
     class Meta:
         model = Tool
@@ -27,3 +15,14 @@ class ToolSerializer(serializers.ModelSerializer):
             "content",
         )
 
+
+class ToolBoxSerializer(serializers.ModelSerializer):
+    tools = ToolSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ToolBox
+        fields = (
+            "id",
+            "name",
+            "tools",
+        )

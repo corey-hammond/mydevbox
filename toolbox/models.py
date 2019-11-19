@@ -1,13 +1,17 @@
 import datetime
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class ToolBox(models.Model):
-    language = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    owner = models.ForeignKey(
+        User, related_name="toolbox", on_delete=models.CASCADE, null=True
+    )
 
     def __str__(self):
-        return self.language
+        return self.name
 
     class Meta:
         verbose_name = "Tool Box"

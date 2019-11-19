@@ -13,15 +13,15 @@ class ToolInLine(admin.TabularInline):
 
 class ToolBoxAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {"fields": ["language"]}),
+        (None, {"fields": ["name"]}),
     ]
     inlines = [ToolInLine]
 
-    list_display = ("language",)
+    list_display = ("name",)
 
-    list_filter = ["language"]
+    list_filter = ["name"]
 
-    search_fields = ["language"]
+    search_fields = ["name"]
 
 
 admin.site.register(ToolBox, ToolBoxAdmin)

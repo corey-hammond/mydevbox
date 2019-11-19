@@ -7,7 +7,12 @@ class ToolBoxViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     serializer_class = ToolBoxSerializer
-    queryset = ToolBox.objects.all()
+
+    def get_queryset(self):
+        return self.request.user.toolbox.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class ToolViewSet(viewsets.ModelViewSet):
@@ -15,3 +20,5 @@ class ToolViewSet(viewsets.ModelViewSet):
 
     serializer_class = ToolSerializer
     queryset = Tool.objects.all()
+    
+    serializer_class = ToolSerializer

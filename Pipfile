@@ -15,6 +15,7 @@ django-cors-headers = "*"
 django-rest-knox = "*"
 gunicorn = "*"
 whitenoise = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.7"
